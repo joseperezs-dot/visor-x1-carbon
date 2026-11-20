@@ -56,6 +56,7 @@ button{font:inherit;color:inherit}
 .seg button{border:0;background:transparent;height:34px;padding:0 12px;border-radius:11px;font-size:12.5px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;transition:.15s}
 .seg button:hover{color:var(--ink)}
 .seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(20,27,36,.12)}
+.acts{display:flex;gap:2px}
 .sep{width:1px;height:26px;background:var(--line);margin:0 4px}
 .slider{display:flex;align-items:center;gap:10px;padding:0 8px;min-width:250px}
 .slider label{font-size:12.5px;font-weight:600;white-space:nowrap}
@@ -135,18 +136,17 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
   .seg{order:1;width:100%;overflow-x:auto;scrollbar-width:none}
   .seg::-webkit-scrollbar{display:none}
   .seg button{flex:1;height:32px;font-size:12px;padding:0 8px}
-  .slider{order:2;flex:1;min-width:0;padding:6px 6px 2px}
+  .slider{order:2;width:100%;flex:none;min-width:0;padding:8px 8px 2px}
   .slider label{font-size:12px}
   .sep{display:none}
-  .acts{order:3;display:flex}
+  .acts{order:3;display:flex;width:100%;justify-content:space-around;border-top:1px solid var(--line);padding-top:2px}
   .ib[data-tip]:hover::after{display:none}
-  #card{left:calc(10px + var(--sl));right:calc(10px + var(--sr));width:auto;bottom:calc(138px + var(--sb));padding:14px}
+  #card{left:calc(10px + var(--sl));right:calc(10px + var(--sr));width:auto;bottom:calc(178px + var(--sb));padding:14px}
   #cDesc{font-size:12.5px;margin:8px 0}
   #drawer{left:calc(10px + var(--sl));right:calc(10px + var(--sr));width:auto;top:calc(58px + var(--st));max-height:calc(100vh - 220px)}
   .lbl{font-size:10.5px;padding:4px 8px 4px 7px}
-  #toast{top:auto;bottom:calc(150px + var(--sb));font-size:12px;white-space:normal;text-align:center;max-width:88vw}
+  #toast{top:auto;bottom:calc(190px + var(--sb));font-size:12px;white-space:normal;text-align:center;max-width:88vw}
 }
-@media (max-width:760px) and (min-width:440px){ .acts{order:2} .slider{order:3;width:100%;flex:none} }
 </style>
 <script type="importmap">
 { "imports": {
@@ -388,7 +388,7 @@ function part(def) {
 const xrayMats = [];   // materiales que se vuelven translúcidos con «Ver interior»
 
 /* ---------- 1. Estructura principal ---------- */
-const pE = part({ id: 'estructura', name: 'Estructura principal', color: '#64748b', dir: [0, 0, -56], anchor: [hw, H, -hd], lo: [90, -40],
+const pE = part({ id: 'estructura', name: 'Estructura principal', color: '#64748b', dir: [0, 0, -56], anchor: [hw, H, -hd], lo: [95, 40],
   desc: 'Chasis cerrado que sostiene y protege todos los sistemas: perfiles de esquina, base, paneles laterales y trasero, puerta frontal y tapa superior de vidrio. Aporta rigidez y mantiene estable la temperatura interna.',
   specs: ['≈ 389 × 389 × 457 mm', 'Puerta y tapa de vidrio', 'Cámara cerrada', 'Ventilador auxiliar y de cámara'] });
 {
@@ -423,7 +423,7 @@ const pE = part({ id: 'estructura', name: 'Estructura principal', color: '#64748
   cyl(1.2, 1.2, 8.6, MAT.frame(), 6, 30, -hd - 4.3, g, 'z');                                            // soporte de bobina
   cyl(1.9, 1.9, 0.5, trim, 6, 30, -hd - 8.4, g, 'z');
   cyl(0.8, 0.8, 1.2, trim, 3, 44.2, -hd - 0.3, g, 'z');                                                 // racor PTFE
-  for (let i = 0; i < 3; i++) rbox(1.4, 0.8, 0.3, std(0x0b0c0e), -12 + i * 2.2, 4.5, -hd - 0.05, g);   // conectores traseros
+  for (let i = 0; i < 3; i++) rbox(1.4, 0.8, 0.3, 0.1, std(0x0b0c0e), -12 + i * 2.2, 4.5, -hd - 0.05, g);   // conectores traseros
 }
 
 /* ---------- 2. Sistema de control ---------- */
@@ -616,7 +616,7 @@ const VIEWS = {
 };
 function viewDistance() {
   const base = 115 * (isSmall() ? 1.45 : 1) * (camera.aspect < 1 ? 1 / Math.max(camera.aspect, 0.5) * 0.85 : 1);
-  return base * (1 + 0.75 * sTarget);
+  return base * (1 + 1.15 * sTarget);
 }
 function viewPos(name) {
   const v = new THREE.Vector3(...VIEWS[name]).normalize().multiplyScalar(viewDistance());
